@@ -6,6 +6,8 @@
 
 <title>Dashboard Kinerja Keuangan</title>
 
+https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css
+
 <style>
 
 *{
@@ -97,8 +99,7 @@ body{
 
     border-top:5px solid #0a9396;
 
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.08);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
 
     transition:
         transform .35s ease,
@@ -115,6 +116,7 @@ body{
 .card:nth-child(5){animation-delay:.5s;}
 .card:nth-child(6){animation-delay:.6s;}
 .card:nth-child(7){animation-delay:.7s;}
+.card:nth-child(8){animation-delay:.8s;}
 
 .card:hover{
     transform:
@@ -126,12 +128,30 @@ body{
 }
 
 .icon{
-    font-size:35px;
-    margin-bottom:15px;
+    width:70px;
+    height:70px;
+    border-radius:18px;
+    background:#eef8f8;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#006d77;
+    font-size:30px;
+    margin-bottom:18px;
+
+    transition:all .3s ease;
+}
+
+.card:hover .icon{
+    background:#006d77;
+    color:white;
+    transform:scale(1.1);
 }
 
 .title{
-    font-size:24px;
+    font-size:22px;
     font-weight:700;
     color:#003049;
     margin-bottom:8px;
@@ -221,7 +241,9 @@ body{
     }
 
     .icon{
-        font-size:30px;
+        width:60px;
+        height:60px;
+        font-size:26px;
     }
 }
 
@@ -239,46 +261,84 @@ body{
 
     <div class="grid">
 
-        <a href="bpp-jateng.html" class="card">
-            <div class="icon">💰</div>
-            <div class="title">Biaya Pokok Penyediaan</div>
-            <div class="desc">Monitoring dan analisis BPP UID Jawa Tengah.</div>
+        <a href="laporan.pdf" class="card">
+            <div class="icon">
+                <i class="fa-solid fa-file-pdf"></i>
+            </div>
+            <div class="title">Laporan Bulanan</div>
+            <div class="desc">
+                Laporan Bulanan Kinerja Keuangan.
+            </div>
         </a>
 
-        <a href="nac-jateng.html" class="card">
-            <div class="icon">📊</div>
+        <a href="bpp-jateng.html" class="card">
+            <div class="icon">
+                <i class="fa-solid fa-sack-dollar"></i>
+            </div>
+            <div class="title">Biaya Pokok Penyediaan</div>
+            <div class="desc">
+                Monitoring dan analisis BPP UID Jawa Tengah.
+            </div>
+        </a>
+
+         <a href="nac-jateng.html" class="card">
+            <div class="icon">
+                <i class="fa-solid fa-chart-column"></i>
+            </div>
             <div class="title">Non Allowable Cost</div>
-            <div class="desc">Monitoring dan analisis Non Allowable Cost.</div>
+            <div class="desc">
+                Monitoring dan analisis Non Allowable Cost.
+            </div>
         </a>
 
         <a href="hapusattb-jateng.html" class="card">
-            <div class="icon">🗑️</div>
+            <div class="icon">
+                <i class="fa-solid fa-trash-can"></i>
+            </div>
             <div class="title">Penghapusan ATTB</div>
-            <div class="desc">Monitoring usulan penghapusan aset tetap.</div>
+            <div class="desc">
+                Monitoring usulan penghapusan aset tetap.
+            </div>
         </a>
 
         <a href="transfer-psa.html" class="card">
-            <div class="icon">⚡</div>
+            <div class="icon">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
             <div class="title">Pola Transfer PSA</div>
-            <div class="desc">Analisis dan monitoring transfer PSA.</div>
+            <div class="desc">
+                Analisis dan monitoring transfer PSA.
+            </div>
         </a>
 
         <a href="lk-tabelaris.html" class="card">
-            <div class="icon">📑</div>
+            <div class="icon">
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+            </div>
             <div class="title">Laporan Keuangan Unit Pelaksana</div>
-            <div class="desc">Ringkasan laporan keuangan unit pelaksana.</div>
+            <div class="desc">
+                Ringkasan laporan keuangan unit pelaksana.
+            </div>
         </a>
 
         <a href="ai-jateng.html" class="card">
-            <div class="icon">🏗️</div>
+            <div class="icon">
+                <i class="fa-solid fa-building-columns"></i>
+            </div>
             <div class="title">Anggaran Investasi</div>
-            <div class="desc">Monitoring realisasi anggaran investasi.</div>
+            <div class="desc">
+                Monitoring realisasi anggaran investasi.
+            </div>
         </a>
 
         <a href="ao-jateng.html" class="card">
-            <div class="icon">📋</div>
+            <div class="icon">
+                <i class="fa-solid fa-briefcase"></i>
+            </div>
             <div class="title">Anggaran Operasi</div>
-            <div class="desc">Monitoring realisasi anggaran operasi.</div>
+            <div class="desc">
+                Monitoring realisasi anggaran operasi.
+            </div>
         </a>
 
     </div>

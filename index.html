@@ -3,108 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard UID Jawa Tengah</title>
+
+<title>Dashboard Kinerja Keuangan</title>
 
 <style>
-body{
-    font-family: Segoe UI, Arial, sans-serif;
-    background:#f4f6f9;
+
+*{
     margin:0;
-    padding:40px;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',Tahoma,sans-serif;
+    background:#f4f6f9;
+}
+
+.header{
+    background:linear-gradient(135deg,#004a99,#0078d4);
+    color:white;
+    text-align:center;
+    padding:50px 20px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.header h1{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.header p{
+    font-size:20px;
 }
 
 .container{
     max-width:1200px;
-    margin:auto;
-}
-
-h1{
-    text-align:center;
-    color:#003366;
-}
-
-.subtitle{
-    text-align:center;
-    color:#666;
-    margin-bottom:30px;
-    font-size:22px;
+    margin:40px auto;
+    padding:0 20px;
 }
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:25px;
 }
 
 .card{
-    display:block;
-    background:white;
-    padding:20px;
-    border-radius:12px;
     text-decoration:none;
+    background:#ffffff;
     color:#003366;
-    box-shadow:0 3px 8px rgba(0,0,0,0.1);
+    padding:25px;
+    border-radius:16px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.10);
+    transition:all 0.25s ease;
+    border-left:6px solid #0078d4;
 }
 
 .card:hover{
-    background:#eaf4ff;
-    transform:translateY(-3px);
+    transform:translateY(-6px);
+    box-shadow:0 8px 20px rgba(0,120,212,0.25);
 }
 
 .icon{
-    font-size:28px;
-    margin-bottom:10px;
+    font-size:34px;
+    margin-bottom:12px;
 }
 
 .title{
     font-size:20px;
-    font-weight:bold;
+    font-weight:600;
+    margin-bottom:6px;
 }
+
+.desc{
+    color:#666;
+    font-size:14px;
+}
+
+.footer{
+    text-align:center;
+    color:#777;
+    margin:40px 0 20px;
+    font-size:13px;
+}
+
 </style>
 </head>
 
 <body>
 
+<div class="header">
+    <h1>Dashboard Kinerja Keuangan</h1>
+    <p>Periode 30 Juni 2026</p>
+</div>
+
 <div class="container">
 
-<h1>Dashboard Keuangan UID Jawa Tengah</h1>
-<div class="subtitle">Periode Juni 2026</div>
+    <div class="grid">
 
-<div class="grid">
+        -jateng.html" class="card">
+            <div class="icon">💰</div>
+            <div class="title">Biaya Pokok Penyediaan</div>
+            <div class="desc">Monitoring BPP UID Jawa Tengah</div>
+        </a>
 
-<ashboard-bpp.html
-<div class="icon">📊</div>
-<div class="title">Biaya Pokok Penyediaan</div>
-</a>
+        <a href="nac-jateng.html" class="card">
+            <div class="icon">📊</div>
+            <div class="title">Non Allowable Cost</div>
+            <div class="desc">Monitoring dan Analisis NAC</div>
+        </a>
 
-dashboard-investasi.html
-<div class="icon">💰</div>
-<div class="title">Anggaran Investasi</div>
-</a>
+        <a href="hapusattb-jateng.html" class="card">
+            <div class="icon">🗑️</div>
+            <div class="title">Penghapusan ATTB</div>
+            <div class="desc">Monitoring Usulan Penghapusan Aset</div>
+        </a>
 
-dashboard-nac.html class="card">
-<div class="icon">📈</div>
-<div class="title">Non Allowable Cost</div>
-</a>
+        psa.html" class="card">
+            <div class="icon">⚡</div>
+            <div class="title">Pola Transfer PSA</div>
+            <div class="desc">Analisis dan Monitoring Transfer PSA</div>
+        </a>
 
-dashboard-usulan-hapus-aset.html" class="card">
-<div class="icon">🗑️</div>
-<div class="title">Penghapusan Aset</div>
-</a>
+        -tabelaris.html" class="card">
+            <div class="icon">📑</div>
+            <div class="title">Laporan Keuangan Unit Pelaksana</div>
+            <div class="desc">Ringkasan Laporan Keuangan UP</div>
+        </a>
 
-<a href="-kinerja-bulanan.html
-<div class="icon">📋</div>
-<div class="title">Dashboard Kinerja Bulanan Non Akumulatif</div>
-</a>
+        eng.html" class="card">
+            <div class="icon">🏗️</div>
+            <div class="title">Anggaran Investasi</div>
+            <div class="desc">Realisasi dan Monitoring Investasi</div>
+        </a>
 
-<a hrefrd-persediaan.html
+        <a href="ao-jateng.html" class="card">
+            <div class="icon">📋</div>
+            <div class="title">Anggaran Operasi</div>
+            <div class="desc">Monitoring Anggaran Operasi</div>
+        </a>
 
-transfer-energi-PSA.html">
-<div class="icon">⚡</div>
-<div class="title">Dashboard Transfer Energi</div>
-</a>
+    </div>
 
-</div>
+    <div class="footer">
+        © PLN UID Jawa Tengah • Dashboard Kinerja Keuangan
+    </div>
 
 </div>
 

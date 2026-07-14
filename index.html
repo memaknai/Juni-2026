@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Dashboard Kinerja Keuangan</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
@@ -15,64 +13,62 @@
 }
 
 body{
-    font-family:'Segoe UI',Tahoma,sans-serif;
+    font-family:'Segoe UI',sans-serif;
     background:#f4f6f9;
 }
 
 .header{
-    background:linear-gradient(135deg,#004a99,#0078d4);
+    background:linear-gradient(135deg,#005baa,#0078d4);
     color:white;
     text-align:center;
-    padding:50px 20px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    padding:40px;
 }
 
 .header h1{
-    font-size:40px;
-    margin-bottom:10px;
+    font-size:42px;
 }
 
 .header p{
-    font-size:20px;
+    margin-top:10px;
+    font-size:22px;
 }
 
 .container{
     max-width:1200px;
     margin:40px auto;
-    padding:0 20px;
+    padding:20px;
 }
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
     gap:25px;
 }
 
 .card{
-    text-decoration:none;
-    background:#ffffff;
-    color:#003366;
+    background:white;
     padding:25px;
-    border-radius:16px;
-    box-shadow:0 3px 10px rgba(0,0,0,0.10);
-    transition:all 0.25s ease;
-    border-left:6px solid #0078d4;
+    border-radius:15px;
+    text-decoration:none;
+    color:#003366;
+    box-shadow:0 4px 12px rgba(0,0,0,.1);
+    transition:0.3s;
 }
 
 .card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 8px 20px rgba(0,120,212,0.25);
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
 }
 
 .icon{
-    font-size:34px;
-    margin-bottom:12px;
+    font-size:36px;
+    margin-bottom:15px;
 }
 
 .title{
-    font-size:20px;
-    font-weight:600;
-    margin-bottom:6px;
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:8px;
 }
 
 .desc{
@@ -83,10 +79,9 @@ body{
 .footer{
     text-align:center;
     color:#777;
-    margin:40px 0 20px;
-    font-size:13px;
+    margin-top:40px;
+    padding:20px;
 }
-
 </style>
 </head>
 
@@ -99,55 +94,55 @@ body{
 
 <div class="container">
 
-    <div class="grid">
+<div class="grid">
 
-        -jateng.html" class="card">
-            <div class="icon">💰</div>
-            <div class="title">Biaya Pokok Penyediaan</div>
-            <div class="desc">Monitoring BPP UID Jawa Tengah</div>
-        </a>
+ateng.html" class="card">
+<div class="icon">💰</div>
+<div class="title">Biaya Pokok Penyediaan</div>
+<div class="desc">Monitoring BPP UID Jawa Tengah</div>
+</a>
 
-        <a href="nac-jateng.html" class="card">
-            <div class="icon">📊</div>
-            <div class="title">Non Allowable Cost</div>
-            <div class="desc">Monitoring dan Analisis NAC</div>
-        </a>
+<a href="nac-jateng.html" class="card">
+<div class="icon">📊</div>
+<div class="title">Non Allowable Cost</div>
+<div class="desc">Monitoring dan Analisis NAC</div>
+</a>
 
-        <a href="hapusattb-jateng.html" class="card">
-            <div class="icon">🗑️</div>
-            <div class="title">Penghapusan ATTB</div>
-            <div class="desc">Monitoring Usulan Penghapusan Aset</div>
-        </a>
+hapusattb-jateng.html" class="card">
+<div class="icon">🗑️</div>
+<div class="title">Penghapusan ATTB</div>
+<div class="desc">Monitoring Usulan Penghapusan Aset Tetap</div>
+</a>
 
-        psa.html" class="card">
-            <div class="icon">⚡</div>
-            <div class="title">Pola Transfer PSA</div>
-            <div class="desc">Analisis dan Monitoring Transfer PSA</div>
-        </a>
+<a href="transfer-psa.html" class="card">
+<div class="icon">⚡</div>
+<div class="title">Pola Transfer PSA</div>
+<div class="desc">Analisis dan Monitoring Transfer PSA</div>
+</a>
 
-        -tabelaris.html" class="card">
-            <div class="icon">📑</div>
-            <div class="title">Laporan Keuangan Unit Pelaksana</div>
-            <div class="desc">Ringkasan Laporan Keuangan UP</div>
-        </a>
+<a href="lk-tabelaris.html" class="card">
+<div class="icon">📑</div>
+<div class="title">Laporan Keuangan Unit Pelaksana</div>
+<div class="desc">Ringkasan Laporan Keuangan Unit</div>
+</a>
 
-        eng.html" class="card">
-            <div class="icon">🏗️</div>
-            <div class="title">Anggaran Investasi</div>
-            <div class="desc">Realisasi dan Monitoring Investasi</div>
-        </a>
+ai-jateng.html" class="card">
+<div class="icon">🏗️</div>
+<div class="title">Anggaran Investasi</div>
+<div class="desc">Realisasi dan Monitoring Investasi</div>
+</a>
 
-        <a href="ao-jateng.html" class="card">
-            <div class="icon">📋</div>
-            <div class="title">Anggaran Operasi</div>
-            <div class="desc">Monitoring Anggaran Operasi</div>
-        </a>
+<a href="ao-jateng.html" class="card">
+<div class="icon">📋</div>
+<div class="title">Anggaran Operasi</div>
+<div class="desc">Monitoring Anggaran Operasi</div>
+</a>
 
-    </div>
+</div>
 
-    <div class="footer">
-        © PLN UID Jawa Tengah • Dashboard Kinerja Keuangan
-    </div>
+<div class="footer">
+    PLN UID Jawa Tengah • Dashboard Kinerja Keuangan
+</div>
 
 </div>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Kinerja Keuangan - Desember 2025</title>
+    <title>Dashboard Kinerja Keuangan - Maret 2026</title>
     <!-- CDN Font Awesome agar Ikon Muncul -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -101,7 +101,8 @@
     <!-- HEADER -->
     <div class="header">
         <h1>Dashboard Kinerja Keuangan</h1>
-        <p>Periode: 31 Desember 2025</p>
+        <!-- Menunjukkan Periode Aktif Halaman Ini -->
+        <p>Periode: 31 Maret 2026</p>
     </div>
 
     <!-- STRUKTUR NAVIGASI ARSIP -->
@@ -110,23 +111,25 @@
             <i class="fa-regular fa-calendar-days"></i> Pilih Periode:
         </div>
         <div class="archive-list">
-            <!-- Jalur mundur ke root folder (Halaman Juni) -->
+            <!-- Jalur mundur 2 kali ke root folder (Halaman Utama Juni 2026) -->
             <a href="../../index.html" class="archive-btn">Juni 2026</a>
-            <!-- Tautan tetap berada di file ini -->
-            <a href="index.html" class="archive-btn active">Desember 2025</a>
+            <!-- Tombol Maret menyala aktif -->
+            <a href="index.html" class="archive-btn active">Maret 2026</a>
+            <!-- Jalur melompat ke folder tetangga (Desember 2025) -->
+            <a href="../2025-12/index.html" class="archive-btn">Desember 2025</a>
         </div>
     </div>
 
     <!-- MAIN DASHBOARD -->
     <div class="container">
         <div class="grid">
-            <!-- Menambahkan Cache Buster (?v=0326) untuk mengunci agar browser tidak salah memuat cache file lama -->
+            <!-- Diarahkan ke file sumber laporan-0326.pdf dengan cache buster -->
             <a href="laporan-0326.pdf?v=0326" class="card">
                 <div class="icon">
                     <i class="fa-solid fa-file-pdf"></i>
                 </div>
                 <div class="title">Laporan Bulanan</div>
-                <div class="desc">Laporan Bulanan Kinerja Keuangan periode Desember 2025.</div>
+                <div class="desc">Laporan Bulanan Kinerja Keuangan periode Maret 2026.</div>
             </a>
         </div>
         <div class="footer">

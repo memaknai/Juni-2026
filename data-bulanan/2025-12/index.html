@@ -101,7 +101,6 @@
     <!-- HEADER -->
     <div class="header">
         <h1>Dashboard Kinerja Keuangan</h1>
-        <!-- Menunjukkan Periode Aktif Halaman Ini -->
         <p>Periode: 31 Desember 2025</p>
     </div>
 
@@ -111,18 +110,18 @@
             <i class="fa-regular fa-calendar-days"></i> Pilih Periode:
         </div>
         <div class="archive-list">
-            <!-- Tautan kembali ke halaman utama Juni di folder luar (root) -->
+            <!-- Jalur mundur ke root folder (Halaman Juni) -->
             <a href="../../index.html" class="archive-btn">Juni 2026</a>
-            <!-- Tombol Desember menyala aktif -->
+            <!-- Tautan tetap berada di file ini -->
             <a href="index.html" class="archive-btn active">Desember 2025</a>
         </div>
     </div>
 
-    <!-- MAIN DASHBOARD (Hanya Menampilkan Laporan yang Tersedia) -->
+    <!-- MAIN DASHBOARD -->
     <div class="container">
         <div class="grid">
-            <!-- Hanya Menampilkan Kartu Laporan Bulanan -->
-            <a href="laporan-1225.pdf" class="card">
+            <!-- Menambahkan Cache Buster (?v=1225) untuk mengunci agar browser tidak salah memuat cache file lama -->
+            <a href="laporan-1225.pdf?v=1225" class="card">
                 <div class="icon">
                     <i class="fa-solid fa-file-pdf"></i>
                 </div>

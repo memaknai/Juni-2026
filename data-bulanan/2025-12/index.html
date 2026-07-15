@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Kinerja Keuangan</title>
+    <title>Dashboard Kinerja Keuangan - Desember 2025</title>
     <!-- CDN Font Awesome agar Ikon Muncul -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -70,13 +70,6 @@
         /* CARD */
         .card{background:white; border-radius:20px; padding:28px; text-decoration:none; color:inherit; border-top:5px solid #0a9396; box-shadow:0 10px 25px rgba(0,0,0,.08); transition: transform .35s ease, box-shadow .35s ease; opacity:0; animation:fadeUp .6s ease forwards; }
         .card:nth-child(1){animation-delay:.1s;}
-        .card:nth-child(2){animation-delay:.2s;}
-        .card:nth-child(3){animation-delay:.3s;}
-        .card:nth-child(4){animation-delay:.4s;}
-        .card:nth-child(5){animation-delay:.5s;}
-        .card:nth-child(6){animation-delay:.6s;}
-        .card:nth-child(7){animation-delay:.7s;}
-        .card:nth-child(8){animation-delay:.8s;}
         .card:hover{transform: translateY(-6px) scale(1.02); box-shadow: 0 20px 35px rgba(0,109,119,.18); }
         
         .icon{width:70px; height:70px; border-radius:18px; background:#eef8f8; display:flex; align-items:center; justify-content:center; color:#006d77; font-size:30px; margin-bottom:18px; transition:all .3s ease; }
@@ -108,8 +101,8 @@
     <!-- HEADER -->
     <div class="header">
         <h1>Dashboard Kinerja Keuangan</h1>
-        <!-- Juni 2026 tetap menjadi rilis utama -->
-        <p>Periode Terkini: 30 Juni 2026</p>
+        <!-- Menunjukkan Periode Aktif Halaman Ini -->
+        <p>Periode: 31 Desember 2025</p>
     </div>
 
     <!-- STRUKTUR NAVIGASI ARSIP -->
@@ -118,71 +111,23 @@
             <i class="fa-regular fa-calendar-days"></i> Pilih Periode:
         </div>
         <div class="archive-list">
-            <!-- Juni aktif sebagai halaman utama saat ini -->
-            <a href="index.html" class="archive-btn active">Juni 2026</a>
-            <!-- Menambahkan pilihan Arsip Desember 2025 -->
-            <a href="data-bulanan/2025-12/index.html" class="archive-btn">Desember 2025</a>
+            <!-- Tautan kembali ke halaman utama Juni di folder luar (root) -->
+            <a href="../../index.html" class="archive-btn">Juni 2026</a>
+            <!-- Tombol Desember menyala aktif -->
+            <a href="index.html" class="archive-btn active">Desember 2025</a>
         </div>
     </div>
 
-    <!-- MAIN DASHBOARD (MENAMPILKAN DATA JUNI 2026) -->
+    <!-- MAIN DASHBOARD (Hanya Menampilkan Laporan yang Tersedia) -->
     <div class="container">
         <div class="grid">
-            <a href="laporan.pdf" class="card">
+            <!-- Hanya Menampilkan Kartu Laporan Bulanan -->
+            <a href="laporan-1225.pdf" class="card">
                 <div class="icon">
                     <i class="fa-solid fa-file-pdf"></i>
                 </div>
                 <div class="title">Laporan Bulanan</div>
-                <div class="desc">Laporan Bulanan Kinerja Keuangan.</div>
-            </a>
-            <a href="bpp-jateng.html" class="card">
-                <div class="icon">
-                    <i class="fa-solid fa-sack-dollar"></i>
-                </div>
-                <div class="title">Biaya Pokok Penyediaan</div>
-                <div class="desc">Monitoring dan analisis BPP UID Jawa Tengah.</div>
-            </a>
-            <a href="nac-jateng.html" class="card">
-                <div class="icon">
-                    <i class="fa-solid fa-chart-column"></i>
-                </div>
-                <div class="title">Non Allowable Cost</div>
-                <div class="desc">Monitoring dan analisis Non Allowable Cost.</div>
-            </a>
-            <a href="hapusattb-jateng.html" class="card">
-                <div class="icon">
-                    <i class="fa-solid fa-trash-can"></i>
-                </div>
-                <div class="title">Penghapusan ATTB</div>
-                <div class="desc">Monitoring usulan penghapusan aset tetap.</div>
-            </a>
-            <a href="transfer-psa.html" class="card">
-                <div class="icon">
-                    <i class="fa-solid fa-bolt"></i>
-                </div>
-                <div class="title">Pola Transfer PSA</div>
-                <div class="desc">Analisis dan monitoring transfer PSA.</div>
-            </a>
-            <a href="lk-tabelaris.html" class="card">
-                <div class="icon">
-                    <i class="fa-solid fa-file-invoice-dollar"></i>
-                </div>
-                <div class="title">Laporan Keuangan Unit Pelaksana</div>
-                <div class="desc">Ringkasan laporan keuangan unit pelaksana.</div>
-            </a>
-            <a href="ai-jateng.html" class="card">
-                <div class="icon">
-                    <i class="fa-solid fa-building-columns"></i>
-                </div>
-                <div class="title">Anggaran Investasi</div>
-                <div class="desc">Monitoring realisasi anggaran investasi.</div>
-            </a>
-            <a href="ao-jateng.html" class="card">
-                <div class="icon">
-                    <i class="fa-solid fa-briefcase"></i>
-                </div>
-                <div class="title">Anggaran Operasi</div>
-                <div class="desc">Monitoring realisasi anggaran operasi.</div>
+                <div class="desc">Laporan Bulanan Kinerja Keuangan periode Desember 2025.</div>
             </a>
         </div>
         <div class="footer">

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analisa Target KM 2025 vs 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f6fa; color: #1a1a2e; font-size: 14px; line-height: 1.6; }
+
+  .header { background: #1a1a2e; color: #fff; padding: 36px 40px 28px; }
+  .header .eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #6fbdff; margin-bottom: 8px; }
+  .header h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .header .subtitle { font-size: 13px; color: #aab0c0; }
+
+  .nav { display: flex; gap: 0; background: #16213e; border-bottom: 1px solid #0f3460; overflow-x: auto; }
+  .nav a { color: #aab0c0; text-decoration: none; padding: 12px 22px; font-size: 12px; letter-spacing: 0.5px; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+  .nav a.active, .nav a:hover { color: #6fbdff; border-bottom-color: #6fbdff; background: rgba(111,189,255,0.05); }
+
+  .page { display: none; padding: 32px 40px; max-width: 1100px; margin: 0 auto; }
+  .page.active { display: block; }
+
+  h2 { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+  h3 { font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
+  .section { margin-bottom: 36px; }
+  .section-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #6fbdff; margin-bottom: 8px; font-weight: 600; }
+
+  .card { background: #fff; border-radius: 10px; border: 1px solid #e2e6f0; padding: 22px 24px; margin-bottom: 20px; }
+
+  .metric-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .metric { background: #fff; border-radius: 8px; border: 1px solid #e2e6f0; padding: 16px 18px; }
+  .metric .label { font-size: 11px; color: #6b7a99; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .metric .value { font-size: 24px; font-weight: 700; color: #1a1a2e; }
+  .metric .sub { font-size: 11px; color: #8892a4; margin-top: 2px; }
+  .metric.up .value { color: #1a7a4a; }
+  .metric.down .value { color: #c0392b; }
+  .metric.neutral .value { color: #1a1a2e; }
+
+  .chart-wrap { position: relative; width: 100%; }
+  .chart-wrap canvas { width: 100% !important; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  thead th { background: #f0f4ff; font-weight: 600; padding: 10px 12px; text-align: left; border-bottom: 2px solid #d0d9f0; color: #1a1a2e; }
+  tbody tr:nth-child(even) { background: #fafbff; }
+  tbody td { padding: 9px 12px; border-bottom: 1px solid #eaedf5; vertical-align: middle; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge-up { background: #d4f5e5; color: #0e5c32; }
+  .badge-down { background: #ffe0de; color: #8b1a1a; }
+  .badge-same { background: #eef0f5; color: #444; }
+  .badge-new { background: #e0f0ff; color: #0a3d6e; }
+  .badge-removed { background: #f9f0ff; color: #4a1a7a; }
+  .badge-warn { background: #fff3cd; color: #7a4a00; }
+
+  .insight { border-left: 4px solid #6fbdff; background: #f0f6ff; padding: 14px 18px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+  .insight .icon { font-size: 16px; margin-right: 6px; }
+  .insight h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; color: #1a3a6e; }
+  .insight p { font-size: 12.5px; color: #2a4060; line-height: 1.6; }
+
+  .warn { border-left-color: #f0a500; background: #fffaf0; }
+  .warn h4 { color: #7a4a00; }
+  .warn p { color: #5a3800; }
+
+  .danger { border-left-color: #e74c3c; background: #fff5f5; }
+  .danger h4 { color: #8b1a1a; }
+  .danger p { color: #6a1a1a; }
+
+  .good { border-left-color: #27ae60; background: #f0fff6; }
+  .good h4 { color: #0e5c32; }
+  .good p { color: #1a4a2a; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 680px) { .two-col { grid-template-columns: 1fr; } .page { padding: 20px 16px; } }
+
+  .legend-row { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 12px; font-size: 12px; color: #555; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; display: inline-block; margin-right: 5px; vertical-align: middle; }
+
+  .heatrow { display: flex; gap: 3px; align-items: center; margin-bottom: 5px; font-size: 11.5px; }
+  .heatrow .rlabel { width: 160px; flex-shrink: 0; color: #444; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .heatcell { flex: 1; height: 22px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #fff; min-width: 28px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">Analisa Kontrak Manajemen</div>
+  <h1>Perubahan Target KM 2025 → 2026</h1>
+  <div class="subtitle">Pergeseran bobot, fokus strategis, dan anomali breakdown bulanan</div>
+</div>
+
+<div class="nav">
+  <a href="#" class="active" onclick="showPage('ringkasan',this)">Ringkasan Eksekutif</a>
+  <a href="#" onclick="showPage('bobot',this)">Perubahan Bobot KPI</a>
+  <a href="#" onclick="showPage('bulanan',this)">Kritik Breakdown Bulanan</a>
+  <a href="#" onclick="showPage('detail',this)">Detail Indikator</a>
+</div>
+
+<!-- PAGE 1: RINGKASAN -->
+<div id="page-ringkasan" class="page active">
+
+  <div class="section">
+    <div class="section-label">Gambaran Umum</div>
+    <div class="metric-row">
+      <div class="metric neutral">
+        <div class="label">Total bobot 2025</div>
+        <div class="value">95 <span style="font-size:14px;color:#888">→ 100</span></div>
+        <div class="sub">Normalisasi proporsional</div>
+      </div>
+      <div class="metric up">
+        <div class="label">Total bobot 2026</div>
+        <div class="value">100</div>
+        <div class="sub">Langsung pas, tidak perlu normalisasi</div>
+      </div>
+      <div class="metric up">
+        <div class="label">Indikator baru</div>
+        <div class="value">+3</div>
+        <div class="sub">Listrik Desa/BPBL, RUPTL Eksekusi, P2TL</div>
+      </div>
+      <div class="metric down">
+        <div class="label">Indikator dihapus</div>
+        <div class="value">-3</div>
+        <div class="sub">Pembacaan Meter, SDM/TJSL, Proses Bisnis</div>
+      </div>
+      <div class="metric neutral">
+        <div class="label">Maks. pengurang 2025</div>
+        <div class="value">-30</div>
+        <div class="sub">K3, SMAP, audit, dst. terpisah</div>
+      </div>
+      <div class="metric down">
+        <div class="label">Maks. pengurang 2026</div>
+        <div class="value">-9</div>
+        <div class="sub">Dipangkas 70% — titik perhatian kritis</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Temuan Kunci</div>
+
+    <div class="insight good">
+      <h4>✅ Fokus elektrik dan infrastruktur makin kuat</h4>
+      <p>Listrik Desa & BPBL masuk dengan bobot 12 (setara Susut Distribusi), RUPTL Eksekusi dari bobot 0 ke 10. Sebelumnya dua hal ini dipantau tapi tidak memengaruhi skor — sekarang jadi driver utama kinerja. Tepat untuk BUMN listrik yang punya mandat elektrifikasi dan penyelesaian proyek.</p>
+    </div>
+
+    <div class="insight good">
+      <h4>✅ Keandalan jaringan naik prioritas</h4>
+      <p>SAIDI+SAIFI digabung bobotnya jadi 20 (dari 14). Ini sinyal perusahaan serius soal pengalaman pelanggan. Ditambah indikator baru "Penurunan Gangguan Penyulang" di Layanan — arah yang benar untuk utilitas listrik.</p>
+    </div>
+
+    <div class="insight good">
+      <h4>✅ Struktur lebih bersih dan transparan</h4>
+      <p>Ditambahkan kolom POLARITAS (positif/negatif/Pengurang) — eksplisit menentukan arah kinerja baik. Bobot langsung 100 tanpa normalisasi. Metodologi jadi lebih jelas untuk pembaca dan auditor.</p>
+    </div>
+
+    <div class="insight warn">
+      <h4>⚠️ Area SDM, proses bisnis, dan keberlanjutan kehilangan insentif positif</h4>
+      <p>17 poin bobot dari area "lunak" (SDM/TJSL 5, Proses Bisnis 8, Pembacaan Meter 4) dipindah ke pengurang. Konsekuensinya: unit tidak bisa "untung" dari performa bagus di area ini, hanya bisa "rugi" kalau buruk. Berisiko menurunkan motivasi proaktif tim HR dan inovasi proses.</p>
+    </div>
+
+    <div class="insight danger">
+      <h4>🔴 Penalti Kepatuhan & K3 dipangkas drastis</h4>
+      <p>Maksimum pengurang anjlok dari -30 (2025) ke -9 (2026). Item K3 & Keselamatan yang dulu bisa memotong -8 poin kini digabung dalam pengurang maks -3. Untuk perusahaan transmisi dan distribusi listrik yang risiko K3-nya tinggi, pelonggaran hukuman dari pelanggaran keselamatan ini perlu dipertanyakan ke manajemen apakah ada mekanisme pengganti di luar tabel KM.</p>
+    </div>
+
+    <div class="insight danger">
+      <h4>🔴 SAIDI 2026 target lebih longgar dari 2025</h4>
+      <p>Target SAIDI Desember 2026 adalah 204,88 menit/pelanggan — lebih tinggi (lebih buruk) dari target 2025 yang 197,75. Padahal bobotnya dinaikkan jadi 20. Kontradiksi ini perlu klarifikasi: apakah memang realistis berdasar kondisi jaringan, atau ada kesalahan input target?</p>
+    </div>
+
+    <div class="insight warn">
+      <h4>⚠️ Definisi indikator Penjualan Tenaga Listrik berubah total</h4>
+      <p>2025 mengukur volume kumulatif (puncak 36.350 GWh), 2026 mengukur pertumbuhan/penambahan (puncak 1.999 GWh). Bukan penurunan target — ini perubahan metrik dari stok ke arus. Tanpa catatan penjelasan di tabel, pembaca bisa keliru menyimpulkan target "anjlok".</p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: PERUBAHAN BOBOT -->
+<div id="page-bobot" class="page">
+
+  <div class="section">
+    <div class="section-label">Perbandingan Bobot Per Kategori</div>
+    <div class="card">
+      <div class="legend-row">
+        <span><span class="legend-dot" style="background:#3a7bd5"></span>2025</span>
+        <span><span class="legend-dot" style="background:#1a7a4a"></span>2026</span>
+      </div>
+      <div class="chart-wrap" style="height:480px;">
+        <canvas id="bobotChart" role="img" aria-label="Grafik batang horizontal perbandingan bobot KPI 2025 vs 2026"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Tabel Perubahan Detail</div>
+    <div class="card" style="padding:0; overflow:hidden;">
+      <table>
+        <thead>
+          <tr>
+            <th>Kategori KPI</th>
+            <th style="text-align:center">Bobot 2025</th>
+            <th style="text-align:center">Bobot 2026</th>
+            <th style="text-align:center">Selisih</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="bobotTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Interpretasi Strategis</div>
+    <div class="two-col">
+      <div class="card">
+        <h3>Yang diperkuat</h3>
+        <ul style="padding-left:18px; font-size:13px; line-height:2;">
+          <li>Keandalan jaringan SAIDI+SAIFI: <strong>+6 poin</strong></li>
+          <li>Listrik Desa & BPBL: <strong>baru +12 poin</strong></li>
+          <li>RUPTL Eksekusi fisik: <strong>baru +10 poin</strong></li>
+          <li>P2TL (penertiban energi): <strong>baru +3 poin</strong></li>
+        </ul>
+        <p style="font-size:12px; color:#555; margin-top:10px; padding-top:10px; border-top:1px solid #eee;">Fokus 2026: mandat elektrifikasi, eksekusi proyek, dan efisiensi distribusi.</p>
+      </div>
+      <div class="card">
+        <h3>Yang dilemahkan / dihapus</h3>
+        <ul style="padding-left:18px; font-size:13px; line-height:2;">
+          <li>Peningkatan Layanan: <strong>-4 poin</strong></li>
+          <li>Pengendalian Anggaran: <strong>-2 poin</strong></li>
+          <li>Digitalisasi: <strong>-3 poin</strong></li>
+          <li>Pembacaan Meter: <strong>-4 (dihapus)</strong></li>
+          <li>SDM/Umum/TJSL: <strong>-5 (dihapus dari positif)</strong></li>
+          <li>Proses Bisnis: <strong>-8 (dihapus dari positif)</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: BREAKDOWN BULANAN -->
+<div id="page-bulanan" class="page">
+
+  <div class="section">
+    <div class="section-label">Pola Pencapaian Kumulatif 2026</div>
+    <p style="font-size:12.5px; color:#555; margin-bottom:16px;">Grafik ini menunjukkan berapa persen dari target tahunan yang "dijadwalkan" tercapai setiap bulannya. Target yang terdistribusi mulus (garis diagonal lurus) mudah dimonitor. Target yang menumpuk di akhir tahun (garis datar lalu lompat) adalah red flag.</p>
+    <div class="card">
+      <div class="legend-row" id="cumLegend"></div>
+      <div class="chart-wrap" style="height:360px;">
+        <canvas id="cumChart" role="img" aria-label="Grafik garis pola kumulatif pencapaian target bulanan 2026"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Heat Map — % Kumulatif per Bulan (Target 2026)</div>
+    <p style="font-size:12px; color:#888; margin-bottom:12px;">Merah = 0%, Kuning = progres, Hijau = selesai. Baris yang serba merah lalu tiba-tiba hijau di akhir = target back-loaded.</p>
+    <div class="card" id="heatmapContainer"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Temuan Anomali Breakdown Bulanan</div>
+
+    <div class="insight danger">
+      <h4>🔴 EBT Pembangkit: 100% target di Desember saja</h4>
+      <p>Target 12,9 MW pembangkit EBT seluruhnya dijadwalkan selesai di Desember 2026. Bulan Jan–Nov semua nol. Artinya monitoring bulanan tidak berguna selama 11 bulan — kalau proyek terlambat masuk Desember, tidak ada peringatan dini sama sekali. Perlu dipecah setidaknya menjadi checkpoint triwulanan.</p>
+    </div>
+
+    <div class="insight danger">
+      <h4>🔴 Dokumen KKP: 43% pertama muncul di Juni, 100% di Desember (3 dokumen dalam 1 bulan)</h4>
+      <p>Dari 7 dokumen KKP, 3 dokumen pertama dijadwalkan selesai di Juni, lalu 4 dokumen berikutnya sekaligus di Desember. Menaruh 57% target dalam satu bulan terakhir membuat review dan koreksi tidak mungkin dilakukan kalau ada hambatan persetujuan.</p>
+    </div>
+
+    <div class="insight warn">
+      <h4>⚠️ Penghapusan ATTB: lompat tiba-tiba di Juni dan September</h4>
+      <p>Dari Rp 0 langsung ke Rp 18,1 Milyar di Juni, lalu lompat lagi ke Rp 60,3 Milyar di September. Ini pola tiga tahap yang lebih baik dari EBT, tapi lonjakan 233% antara Juni ke September dalam satu kuartal perlu dasar jadwal proses yang jelas agar tidak menjadi target "kerja keras di bulan-bulan tertentu saja".</p>
+    </div>
+
+    <div class="insight warn">
+      <h4>⚠️ Penambahan Jaringan JTM/JTR/Trafo: nol total sampai Maret</h4>
+      <p>Tiga bulan pertama (Jan–Mar) semua nol, baru mulai di April. Untuk proyek infrastruktur fisik, ini agak wajar karena proses pengadaan dan mobilisasi. Tapi kalau tren ini konsisten setiap tahun, perlu evaluasi apakah proses RKAP dan kontrak kontraktor bisa dimajukan.</p>
+    </div>
+
+    <div class="insight good">
+      <h4>✅ Penjualan Tenaga Listrik: distribusi paling sehat</h4>
+      <p>Naik mulus dari ~8% di Januari sampai 100% di Desember, konsisten setiap bulan. Ini contoh breakdown bulanan yang baik — ada peringatan dini yang jelas kalau realisasi meleset dari jalur.</p>
+    </div>
+
+    <div class="insight good">
+      <h4>✅ SAIDI & SAIFI: distribusi sangat konsisten</h4>
+      <p>Kenaikan sekitar 17 menit/bulan untuk SAIDI dan 0,2 kali/bulan untuk SAIFI — seragam sepanjang tahun. Ini mencerminkan sifat alami data keandalan yang akumulatif per kejadian, sehingga breakdown bulanannya sangat realistis.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Tabel Detail Anomali Breakdown 2026</div>
+    <div class="card" style="padding:0; overflow:hidden; overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Indikator</th>
+            <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>Mei</th><th>Jun</th><th>Jul</th><th>Agu</th><th>Sep</th><th>Okt</th><th>Nov</th><th>Des</th>
+            <th>Pola</th>
+          </tr>
+        </thead>
+        <tbody id="anomaliTable"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4: DETAIL -->
+<div id="page-detail" class="page">
+  <div class="section">
+    <div class="section-label">Perubahan Target Utama</div>
+
+    <div class="card">
+      <h3>1. Penjualan Tenaga Listrik — Perubahan Definisi Metrik</h3>
+      <div class="two-col" style="margin-top:12px;">
+        <div style="background:#f0f4ff; border-radius:8px; padding:14px;">
+          <div class="section-label" style="color:#3a7bd5">2025 — Volume kumulatif</div>
+          <div style="font-size:20px; font-weight:700; margin:8px 0;">36.350 GWh</div>
+          <div style="font-size:12px; color:#555;">Total penjualan kWh akumulatif Jan–Des<br>Bobot: 14 poin</div>
+        </div>
+        <div style="background:#f0fff6; border-radius:8px; padding:14px;">
+          <div class="section-label" style="color:#1a7a4a">2026 — Pertumbuhan/penambahan</div>
+          <div style="font-size:20px; font-weight:700; margin:8px 0;">1.999,82 GWh</div>
+          <div style="font-size:12px; color:#555;">Penambahan penjualan dari baseline<br>Bobot: 14 poin</div>
+        </div>
+      </div>
+      <p style="font-size:12px; color:#c0392b; margin-top:12px; padding:10px; background:#fff5f5; border-radius:6px;">⚠️ Bukan penurunan target — ini perubahan jenis metrik (stok → arus). Perlu catatan penjelasan eksplisit di dokumen KM agar tidak disalahartikan.</p>
+    </div>
+
+    <div class="card">
+      <h3>2. Keandalan Jaringan (SAIDI) — Kontradiksi Bobot vs Target</h3>
+      <div class="chart-wrap" style="height:220px; margin-top:12px;">
+        <canvas id="saidiChart" role="img" aria-label="Grafik perbandingan target SAIDI kumulatif 2025 vs 2026"></canvas>
+      </div>
+      <p style="font-size:12px; color:#c0392b; margin-top:12px; padding:10px; background:#fff5f5; border-radius:6px;">🔴 Target SAIDI akhir tahun 2026 (204,88 menit) lebih tinggi/longgar dari 2025 (197,75 menit), padahal bobot SAIDI dinaikkan dari 7 menjadi 10. Bobot naik tapi target dilonggarkan — inkonsistensi yang perlu klarifikasi.</p>
+    </div>
+
+    <div class="card">
+      <h3>3. Susut Distribusi — Target 2026 Lebih Ambisius</h3>
+      <div class="chart-wrap" style="height:220px; margin-top:12px;">
+        <canvas id="susutChart" role="img" aria-label="Grafik target susut distribusi bulanan 2025 vs 2026"></canvas>
+      </div>
+      <p style="font-size:12px; color:#1a7a4a; margin-top:12px; padding:10px; background:#f0fff6; border-radius:6px;">✅ Target susut Desember 2026 (6,75%) lebih rendah dari 2025 (6,77%) dan konsisten turun sepanjang tahun. Arah benar, menunjukkan tekad memperbaiki efisiensi jaringan.</p>
+    </div>
+
+    <div class="card">
+      <h3>4. Pengurang Kepatuhan — Perbandingan Struktur</h3>
+      <div class="two-col" style="margin-top:12px;">
+        <div>
+          <div class="section-label" style="color:#c0392b;">2025 — 6 item pengurang terpisah</div>
+          <table style="margin-top:8px; font-size:12px;">
+            <tr><td style="padding:5px 0; border-bottom:1px solid #eee;">Pengelolaan K3, Keamanan, LH</td><td style="text-align:right; font-weight:700; color:#c0392b; padding-left:20px;">Maks -8</td></tr>
+            <tr><td style="padding:5px 0; border-bottom:1px solid #eee;">Maturity Level SMAP (Anti Suap)</td><td style="text-align:right; font-weight:700; color:#c0392b; padding-left:20px;">Maks -4</td></tr>
+            <tr><td style="padding:5px 0; border-bottom:1px solid #eee;">Akurasi Data & Pelaporan</td><td style="text-align:right; font-weight:700; color:#c0392b; padding-left:20px;">Maks -10</td></tr>
+            <tr><td style="padding:5px 0; border-bottom:1px solid #eee;">Tindak Lanjut Temuan Audit</td><td style="text-align:right; font-weight:700; color:#c0392b; padding-left:20px;">Maks -5</td></tr>
+            <tr><td style="padding:5px 0; border-bottom:1px solid #eee;">Critical Event</td><td style="text-align:right; font-weight:700; color:#c0392b; padding-left:20px;">Maks -3</td></tr>
+            <tr><td style="padding:5px 0; border-bottom:1px solid #eee;">Beyond RKAP (swing)</td><td style="text-align:right; font-weight:700; color:#555; padding-left:20px;">-2 / +2</td></tr>
+            <tr><td style="padding:6px 0; font-weight:700;">TOTAL MAKS PENGURANG</td><td style="text-align:right; font-weight:700; color:#c0392b; padding-left:20px;">-30</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="section-label" style="color:#e67e22;">2026 — 3 kategori besar digabung</div>
+          <table style="margin-top:8px; font-size:12px;">
+            <tr><td style="padding:5px 0; border-bottom:1px solid #eee;">Implementasi Maturity Level</td><td style="text-align:right; font-weight:700; color:#e67e22; padding-left:20px;">Maks -3</td></tr>
+            <tr><td style="padding:5px 0; border-bottom:1px solid #eee;">Kepatuhan (HSSE, Audit, dll.)</td><td style="text-align:right; font-weight:700; color:#e67e22; padding-left:20px;">Maks -3</td></tr>
+            <tr><td style="padding:5px 0; border-bottom:1px solid #eee;">Tata Kelola Perusahaan</td><td style="text-align:right; font-weight:700; color:#e67e22; padding-left:20px;">Maks -3</td></tr>
+            <tr><td style="padding:6px 0; font-weight:700;">TOTAL MAKS PENGURANG</td><td style="text-align:right; font-weight:700; color:#e67e22; padding-left:20px;">-9</td></tr>
+          </table>
+          <p style="font-size:12px; color:#c0392b; margin-top:16px; padding:10px; background:#fff5f5; border-radius:6px;">Pemotongan 70% dari total pengurang — terutama K3 dari -8 ke dalam pooling -3. Perlu konfirmasi: apakah ada mekanisme pengurang tambahan di luar KM ini?</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>5. Usulan Penghapusan ATTB — Potensi Salah Satuan</h3>
+      <div class="two-col" style="margin-top:12px; font-size:13px;">
+        <div style="background:#f0f4ff; border-radius:8px; padding:14px;">
+          <div class="section-label" style="color:#3a7bd5;">2025</div>
+          <div style="font-size:18px; font-weight:700; margin:6px 0;">Rp 173,04 <span style="font-size:13px; font-weight:400;">Milyar</span></div>
+        </div>
+        <div style="background:#fffaf0; border-radius:8px; padding:14px;">
+          <div class="section-label" style="color:#e67e22;">2026</div>
+          <div style="font-size:18px; font-weight:700; margin:6px 0;">Rp 60.329,8 <span style="font-size:13px; font-weight:400;">Juta</span></div>
+          <div style="font-size:12px; color:#888;">= Rp 60,3 Milyar</div>
+        </div>
+      </div>
+      <p style="font-size:12px; color:#e67e22; margin-top:12px; padding:10px; background:#fffaf0; border-radius:6px;">⚠️ Satuan berubah dari Milyar ke Juta. Kalau memang disengaja, target 2026 (Rp 60,3 M) lebih kecil dari 2025 (Rp 173 M). Kalau satuan tidak sengaja berbeda, ini salah ketik yang perlu dikoreksi segera sebelum KM ditandatangani.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (el) el.classList.add('active');
+}
+
+// ---- DATA ----
+const bobotData = [
+  { label: 'Penjualan Tenaga Listrik', v2025: 14, v2026: 14 },
+  { label: 'Susut Distribusi', v2025: 12, v2026: 12 },
+  { label: 'Kehandalan (SAIDI+SAIFI)', v2025: 14, v2026: 20 },
+  { label: 'Listrik Desa & BPBL', v2025: 0, v2026: 12 },
+  { label: 'RUPTL Eksekusi', v2025: 0, v2026: 10 },
+  { label: 'Peningkatan Layanan', v2025: 12, v2026: 8 },
+  { label: 'Percepatan Penyambungan', v2025: 8, v2026: 8 },
+  { label: 'Cash In / Management Cash', v2025: 6, v2026: 6 },
+  { label: 'Pengendalian Anggaran', v2025: 6, v2026: 4 },
+  { label: 'Digitalisasi Aplikasi', v2025: 6, v2026: 3 },
+  { label: 'Pembacaan Meter', v2025: 4, v2026: 0 },
+  { label: 'P2TL', v2025: 0, v2026: 3 },
+  { label: 'SDM, Umum & TJSL', v2025: 5, v2026: 0 },
+  { label: 'Proses Bisnis & Keberlanjutan', v2025: 8, v2026: 0 },
+];
+
+// Bobot chart
+new Chart(document.getElementById('bobotChart'), {
+  type: 'bar',
+  data: {
+    labels: bobotData.map(d => d.label),
+    datasets: [
+      { label: '2025', data: bobotData.map(d => d.v2025), backgroundColor: '#3a7bd5' },
+      { label: '2026', data: bobotData.map(d => d.v2026), backgroundColor: '#1a7a4a' }
+    ]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { beginAtZero: true, max: 25, title: { display: true, text: 'Bobot (poin)' } },
+      y: { ticks: { font: { size: 11 }, autoSkip: false } }
+    }
+  }
+});
+
+// Bobot table
+const bobotTable = document.getElementById('bobotTable');
+bobotData.forEach(d => {
+  const delta = d.v2026 - d.v2025;
+  let status = '', badgeClass = '';
+  if (d.v2025 === 0 && d.v2026 > 0) { status = 'BARU'; badgeClass = 'badge-new'; }
+  else if (d.v2026 === 0 && d.v2025 > 0) { status = 'DIHAPUS (dari positif)'; badgeClass = 'badge-removed'; }
+  else if (delta > 0) { status = 'Naik'; badgeClass = 'badge-up'; }
+  else if (delta < 0) { status = 'Turun'; badgeClass = 'badge-down'; }
+  else { status = 'Sama'; badgeClass = 'badge-same'; }
+  const deltaStr = delta > 0 ? `+${delta}` : delta === 0 ? '–' : `${delta}`;
+  bobotTable.innerHTML += `<tr>
+    <td>${d.label}</td>
+    <td style="text-align:center; font-weight:600">${d.v2025}</td>
+    <td style="text-align:center; font-weight:600">${d.v2026}</td>
+    <td style="text-align:center; font-weight:700; color:${delta > 0 ? '#1a7a4a' : delta < 0 ? '#c0392b' : '#888'}">${deltaStr}</td>
+    <td><span class="badge ${badgeClass}">${status}</span></td>
+  </tr>`;
+});
+
+// Kumulatif data (%)
+const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+const cumSeries = [
+  { label: 'Penjualan Tenaga Listrik', color: '#3a7bd5', data: [8.1,15.6,23.8,31.5,40.0,48.4,56.9,65.4,73.9,82.9,91.5,100] },
+  { label: 'SAIDI (keandalan)', color: '#1a7a4a', data: [8.6,16.4,25.0,33.2,41.7,50.0,58.2,66.8,75.0,83.3,91.5,100] },
+  { label: 'Penambahan Pelanggan', color: '#8e44ad', data: [6.9,15.3,22.5,29.9,37.5,45.1,52.6,59.3,67.1,76.9,86.2,100] },
+  { label: 'Dok. KKP (Proyek)', color: '#e67e22', borderDash: [5,3], data: [0,0,0,0,0,42.9,42.9,42.9,57.1,57.1,57.1,100] },
+  { label: 'EBT Pembangkit (MW)', color: '#e74c3c', borderDash: [8,4], data: [0,0,0,0,0,0,0,0,0,0,0,100] },
+  { label: 'Penghapusan ATTB', color: '#f39c12', borderDash: [3,3], data: [0,0,0,0,0,30.0,30.0,30.0,100,100,100,100] },
+];
+
+const cumLegend = document.getElementById('cumLegend');
+cumSeries.forEach(s => {
+  cumLegend.innerHTML += `<span style="display:flex;align-items:center;gap:5px;"><span style="width:20px;height:3px;background:${s.color};display:inline-block;border-top:${s.borderDash?'3px dashed':'3px solid'}${s.color}"></span><span>${s.label}</span></span>`;
+});
+
+new Chart(document.getElementById('cumChart'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: cumSeries.map(s => ({
+      label: s.label,
+      data: s.data,
+      borderColor: s.color,
+      backgroundColor: s.color,
+      borderWidth: 2,
+      borderDash: s.borderDash || [],
+      pointRadius: 3,
+      tension: 0.1,
+      fill: false
+    }))
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { autoSkip: false } },
+      y: { beginAtZero: true, max: 110, title: { display: true, text: '% dari target tahunan (kumulatif)' } }
+    }
+  }
+});
+
+// Heatmap
+const heatData = [
+  { label: 'Penjualan Tenaga Listrik', vals: [8,16,24,32,40,48,57,65,74,83,92,100] },
+  { label: 'Susut Distribusi', vals: [3,9,14,19,25,31,36,42,47,53,58,64].map(v=>Math.round(v)) },
+  { label: 'SAIDI', vals: [9,16,25,33,42,50,58,67,75,83,92,100] },
+  { label: 'Penambahan Pelanggan', vals: [7,15,22,30,38,45,53,59,67,77,86,100] },
+  { label: 'Dok. KKP', vals: [0,0,0,0,0,43,43,43,57,57,57,100] },
+  { label: 'EBT Pembangkit', vals: [0,0,0,0,0,0,0,0,0,0,0,100] },
+  { label: 'JTM (kms)', vals: [0,0,0,10,15,35,37,39,44,53,70,100] },
+  { label: 'Penghapusan ATTB', vals: [0,0,0,0,0,30,30,30,100,100,100,100] },
+  { label: 'Transaksi PLN Mobile', vals: [6,13,19,27,37,46,55,63,72,82,91,100] },
+  { label: 'Pend. Biaya Penyambungan', vals: [7,15,21,29,37,45,53,61,69,81,90,100] },
+];
+
+function heatColor(pct) {
+  if (pct === 0) return '#e74c3c';
+  if (pct < 30) return '#e67e22';
+  if (pct < 60) return '#f39c12';
+  if (pct < 90) return '#27ae60';
+  return '#1a7a4a';
+}
+
+const hc = document.getElementById('heatmapContainer');
+hc.innerHTML = `<div style="display:flex;gap:3px;align-items:center;margin-bottom:10px;font-size:11px;font-weight:600;color:#888;">
+  <div style="width:160px;flex-shrink:0;"></div>${months.map(m=>`<div style="flex:1;text-align:center;min-width:28px;">${m}</div>`).join('')}
+</div>`;
+heatData.forEach(row => {
+  const div = document.createElement('div');
+  div.className = 'heatrow';
+  div.innerHTML = `<div class="rlabel" title="${row.label}">${row.label}</div>` +
+    row.vals.map(v => `<div class="heatcell" style="background:${heatColor(v)}" title="${v}%">${v}</div>`).join('');
+  hc.appendChild(div);
+});
+
+// Anomali table
+const anomaliRows = [
+  { label: 'Penjualan Tenaga Listrik', vals: [8,16,24,32,40,48,57,65,74,83,92,100], pola: '✅ Mulus' },
+  { label: 'SAIDI / SAIFI', vals: [9,16,25,33,42,50,58,67,75,83,92,100], pola: '✅ Konsisten' },
+  { label: 'EBT Pembangkit', vals: [0,0,0,0,0,0,0,0,0,0,0,100], pola: '🔴 All-in Des' },
+  { label: 'Dokumen KKP', vals: [0,0,0,0,0,43,43,43,57,57,57,100], pola: '🔴 Back-loaded' },
+  { label: 'Penghapusan ATTB', vals: [0,0,0,0,0,30,30,30,100,100,100,100], pola: '⚠️ Lompat-lompat' },
+  { label: 'JTM/JTR/Trafo', vals: [0,0,0,10,15,35,37,39,44,53,70,100], pola: '⚠️ Lambat awal' },
+  { label: 'Penambahan Pelanggan', vals: [7,15,22,30,38,45,53,59,67,77,86,100], pola: '✅ Cukup mulus' },
+];
+
+const at = document.getElementById('anomaliTable');
+anomaliRows.forEach(r => {
+  at.innerHTML += `<tr>
+    <td style="white-space:nowrap;font-weight:600">${r.label}</td>
+    ${r.vals.map(v => `<td style="text-align:center;background:${heatColor(v)};color:#fff;font-weight:700;font-size:11px">${v}%</td>`).join('')}
+    <td style="white-space:nowrap">${r.pola}</td>
+  </tr>`;
+});
+
+// SAIDI chart
+new Chart(document.getElementById('saidiChart'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      { label: 'SAIDI 2025 (target)', data: [17.03,32.41,49.44,65.55,82.49,98.87,115.17,132.01,148.31,164.7,175.07,197.75], borderColor: '#3a7bd5', backgroundColor: '#3a7bd5', borderWidth: 2, pointRadius: 3, fill: false },
+      { label: 'SAIDI 2026 (target)', data: [17.64,33.58,51.22,67.92,85.46,102.44,119.33,136.77,153.66,170.64,187.48,204.88], borderColor: '#e74c3c', backgroundColor: '#e74c3c', borderWidth: 2, borderDash: [5,3], pointRadius: 3, fill: false }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'top', labels: { boxWidth: 14, font: { size: 12 } } } },
+    scales: {
+      x: { ticks: { autoSkip: false } },
+      y: { title: { display: true, text: 'Menit/pelanggan (kumulatif)' } }
+    }
+  }
+});
+
+// Susut chart
+new Chart(document.getElementById('susutChart'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      { label: 'Susut 2025', data: [7.35,7.28,7.21,7.13,7.10,7.06,6.99,6.95,6.92,6.84,6.81,6.77], borderColor: '#3a7bd5', backgroundColor: '#3a7bd5', borderWidth: 2, pointRadius: 3, fill: false },
+      { label: 'Susut 2026', data: [6.97,6.94,6.90,6.89,6.86,6.86,6.84,6.82,6.80,6.79,6.77,6.75], borderColor: '#1a7a4a', backgroundColor: '#1a7a4a', borderWidth: 2, borderDash: [5,3], pointRadius: 3, fill: false }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'top', labels: { boxWidth: 14, font: { size: 12 } } } },
+    scales: {
+      x: { ticks: { autoSkip: false } },
+      y: { title: { display: true, text: '% Susut Distribusi' }, reverse: false }
+    }
+  }
+});
+</script>
+</body>
+</html>

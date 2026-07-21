@@ -18,25 +18,29 @@
       color: #333;
     }
 
-    /* HEADER DENGAN BACKGROUND BIRU */
+    /* HEADER PERSIS MARET 2026 (WARNA & TRANSISI) */
     .header {
-      background: linear-gradient(135deg, #003049 0%, #006d77 100%);
+      background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
       color: white;
       text-align: center;
-      padding: 40px 20px 30px 20px;
+      padding: 45px 20px 35px 20px;
       margin-bottom: 35px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      animation: fadeInDown 0.8s ease-out forwards;
     }
 
     .header h1 {
       font-size: 36px;
+      font-weight: 700;
       color: #ffffff;
       margin-bottom: 8px;
+      letter-spacing: 0.5px;
     }
 
     .header p {
       font-size: 18px;
-      color: #e0f2fe;
+      color: #e0e6ed;
+      font-weight: 300;
     }
 
     /* STRUKTUR NAVIGASI ARSIP (DALAM HEADER) */
@@ -45,12 +49,13 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-      margin-top: 20px;
+      margin-top: 22px;
     }
 
     .archive-label {
       font-weight: 600;
-      color: #e0f2fe;
+      color: #cfd8dc;
+      font-size: 14px;
     }
 
     .archive-list {
@@ -59,25 +64,30 @@
     }
 
     .archive-btn {
-      padding: 6px 16px;
+      padding: 6px 18px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
+      background: rgba(255, 255, 255, 0.12);
+      color: #e0e6ed;
       text-decoration: none;
       font-size: 14px;
       font-weight: 600;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(5px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .archive-btn:hover {
-      background: rgba(255, 255, 255, 0.35);
-      color: white;
+      background: rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     .archive-btn.active {
-      background: white;
-      color: #003049;
+      background: #ffffff;
+      color: #0f2027;
+      border-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     /* GRID & CONTAINER */
@@ -166,6 +176,17 @@
     }
 
     /* ANIMATION */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     @keyframes fadeUp {
       from {
         opacity: 0;
@@ -197,7 +218,7 @@
 </head>
 <body>
 
-  <!-- HEADER DENGAN BACKGROUND BIRU -->
+  <!-- HEADER DENGAN BACKGROUND BIRU MARET 2026 -->
   <div class="header">
     <h1>Dashboard Kinerja Keuangan</h1>
     <p>Periode Terkini: 30 Juni 2026</p>

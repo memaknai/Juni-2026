@@ -16,38 +16,41 @@
     body {
       background-color: #f4f7f6;
       color: #333;
-      padding: 20px;
     }
 
-    /* HEADER */
+    /* HEADER DENGAN BACKGROUND BIRU */
     .header {
+      background: linear-gradient(135deg, #003049 0%, #006d77 100%);
+      color: white;
       text-align: center;
-      padding: 40px 20px 20px 20px;
+      padding: 40px 20px 30px 20px;
+      margin-bottom: 35px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
     .header h1 {
       font-size: 36px;
-      color: #003049;
+      color: #ffffff;
       margin-bottom: 8px;
     }
 
     .header p {
       font-size: 18px;
-      color: #6b7280;
+      color: #e0f2fe;
     }
 
-    /* STRUKTUR NAVIGASI ARSIP */
+    /* STRUKTUR NAVIGASI ARSIP (DALAM HEADER) */
     .archive-container {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
-      margin-bottom: 30px;
+      margin-top: 20px;
     }
 
     .archive-label {
       font-weight: 600;
-      color: #003049;
+      color: #e0f2fe;
     }
 
     .archive-list {
@@ -58,23 +61,30 @@
     .archive-btn {
       padding: 6px 16px;
       border-radius: 20px;
-      background: #eef8f8;
-      color: #006d77;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
       text-decoration: none;
       font-size: 14px;
       font-weight: 600;
       transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
     }
 
-    .archive-btn:hover, .archive-btn.active {
-      background: #006d77;
+    .archive-btn:hover {
+      background: rgba(255, 255, 255, 0.35);
       color: white;
+    }
+
+    .archive-btn.active {
+      background: white;
+      color: #003049;
     }
 
     /* GRID & CONTAINER */
     .container {
       max-width: 1200px;
       margin: 0 auto;
+      padding: 0 20px;
     }
 
     .grid {
@@ -150,7 +160,7 @@
 
     .footer {
       text-align: center;
-      margin-top: 45px;
+      margin: 45px 0 25px 0;
       color: #6b7280;
       font-size: 13px;
     }
@@ -174,10 +184,10 @@
     }
 
     @media (max-width: 768px) {
-      .header { padding: 40px 20px 25px 20px; }
+      .header { padding: 35px 20px 25px 20px; }
       .header h1 { font-size: 26px; }
       .header p { font-size: 14px; }
-      .archive-container { margin-top: 20px; justify-content: center; }
+      .archive-container { flex-direction: column; gap: 8px; }
       .grid { grid-template-columns: 1fr; }
       .card { padding: 22px; }
       .title { font-size: 20px; }
@@ -187,21 +197,21 @@
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- HEADER DENGAN BACKGROUND BIRU -->
   <div class="header">
     <h1>Dashboard Kinerja Keuangan</h1>
     <p>Periode Terkini: 30 Juni 2026</p>
-  </div>
 
-  <!-- STRUKTUR NAVIGASI ARSIP -->
-  <div class="archive-container">
-    <div class="archive-label">
-      <i class="fa-regular fa-calendar-days"></i> Pilih Periode:
-    </div>
-    <div class="archive-list">
-      <a href="index.html" class="archive-btn active">Juni 2026</a>
-      <a href="data-bulanan/2026-03/index.html" class="archive-btn">Mar 2026</a>
-      <a href="data-bulanan/2025-12/index.html" class="archive-btn">Dec 2025</a>
+    <!-- STRUKTUR NAVIGASI ARSIP -->
+    <div class="archive-container">
+      <div class="archive-label">
+        <i class="fa-regular fa-calendar-days"></i> Pilih Periode:
+      </div>
+      <div class="archive-list">
+        <a href="index.html" class="archive-btn active">Juni 2026</a>
+        <a href="data-bulanan/2026-03/index.html" class="archive-btn">Mar 2026</a>
+        <a href="data-bulanan/2025-12/index.html" class="archive-btn">Dec 2025</a>
+      </div>
     </div>
   </div>
 
@@ -230,10 +240,10 @@
       <!-- 3. Non Allowable Cost -->
       <a href="nac-jateng.html" class="card">
         <div class="icon">
-         <i class="fa-solid fa-file-circle-xmark"></i>
+          <i class="fa-solid fa-file-circle-xmark"></i>
         </div>
         <div class="title">Non Allowable Cost</div>
-        <div class="desc">Monitoring dan Evaluasi Non Allowable Cost</div>
+        <div class="desc">Monitoring dan Analisis Non Allowable Cost</div>
       </a>
 
       <!-- 4. Penghapusan ATTB -->
@@ -250,7 +260,7 @@
         <div class="icon">
           <i class="fa-solid fa-bolt"></i>
         </div>
-        <div class="title"> Penjualan Tenaga Listrik</div>
+        <div class="title">Penjualan Tenaga Listrik</div>
         <div class="desc">Monitoring & Analisis Data Penjualan</div>
       </a>
 
@@ -321,7 +331,7 @@
   </div>
 
   <div class="footer">
-    <p> © 2026 JW | Belajar • Bertumbuh • Berdampak</p>
+    <p>© 2026 JW | Belajar • Bertumbuh • Berdampak</p>
   </div>
 
 </body>
